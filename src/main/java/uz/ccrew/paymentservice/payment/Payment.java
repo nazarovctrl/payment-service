@@ -1,7 +1,7 @@
 package uz.ccrew.paymentservice.payment;
 
-import uz.ccrew.paymentservice.account.Account;
 import uz.ccrew.paymentservice.card.Card;
+import uz.ccrew.paymentservice.account.Account;
 import uz.ccrew.paymentservice.payment.enums.PaymentType;
 import uz.ccrew.paymentservice.payment.enums.PaymentStatus;
 

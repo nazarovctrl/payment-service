@@ -1,5 +1,9 @@
 package uz.ccrew.paymentservice.useraccount;
 
+import uz.ccrew.paymentservice.response.Response;
+import uz.ccrew.paymentservice.response.ResponseMaker;
+import uz.ccrew.paymentservice.useraccount.dto.UserAccountDTO;
+import uz.ccrew.paymentservice.useraccount.dto.UserAccountCreateDTO;
 
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -11,10 +15,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.security.access.prepost.PreAuthorize;
-import uz.ccrew.paymentservice.response.Response;
-import uz.ccrew.paymentservice.response.ResponseMaker;
-import uz.ccrew.paymentservice.useraccount.dto.UserAccountCreateDTO;
-import uz.ccrew.paymentservice.useraccount.dto.UserAccountDTO;
 
 @RestController
 @RequestMapping("/api/v1/user-account")

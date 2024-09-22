@@ -1,6 +1,5 @@
 package uz.ccrew.paymentservice.account;
 
-import org.springframework.web.bind.annotation.GetMapping;
 import uz.ccrew.paymentservice.response.Response;
 import uz.ccrew.paymentservice.account.dto.AccountDTO;
 import uz.ccrew.paymentservice.response.ResponseMaker;
@@ -9,6 +8,7 @@ import lombok.RequiredArgsConstructor;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import io.swagger.v3.oas.annotations.Operation;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;

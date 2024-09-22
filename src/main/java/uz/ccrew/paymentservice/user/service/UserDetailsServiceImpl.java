@@ -1,12 +1,13 @@
 package uz.ccrew.paymentservice.user.service;
 
+import uz.ccrew.paymentservice.user.User;
+import uz.ccrew.paymentservice.user.UserDetailsImpl;
+import uz.ccrew.paymentservice.user.UserRepository;
+
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
-import uz.ccrew.paymentservice.user.User;
-import uz.ccrew.paymentservice.user.UserDetailsImpl;
-import uz.ccrew.paymentservice.user.UserRepository;
 
 import java.util.Optional;
 
