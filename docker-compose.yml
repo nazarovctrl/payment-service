@@ -1,0 +1,18 @@
+version: '3.7'
+services:
+  flight-management-app:
+    build:
+      context: .
+    container_name: payment-service
+    image: nazarovv2/payment-service:latest
+    ports:
+      - "8081:8081"
+    networks:
+      - net
+    environment:
+      - DB_URL=${DB_URL}
+      - DB_USERNAME=${DB_USERNAME}
+      - DB_PASSWORD=${DB_PASSWORD}
+networks:
+  net:
+    driver: "bridge"
