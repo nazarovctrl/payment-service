@@ -3,7 +3,6 @@ package uz.ccrew.paymentservice.card;
 import uz.ccrew.paymentservice.card.dto.CardDTO;
 import uz.ccrew.paymentservice.card.dto.TopUpDTO;
 import uz.ccrew.paymentservice.response.Response;
-import uz.ccrew.paymentservice.account.dto.AccountDTO;
 import uz.ccrew.paymentservice.response.ResponseMaker;
 
 import jakarta.validation.Valid;

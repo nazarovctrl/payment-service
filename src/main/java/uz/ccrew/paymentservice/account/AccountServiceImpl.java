@@ -15,7 +15,6 @@ public class AccountServiceImpl implements AccountService {
     @Override
     public AccountDTO create() {
         Account account = Account.builder()
-                .accountNumber("1231")
                 .balance(0L)
                 .build();
         accountRepository.save(account);

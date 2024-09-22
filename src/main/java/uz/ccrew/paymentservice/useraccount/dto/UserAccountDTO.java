@@ -4,6 +4,6 @@ import lombok.Builder;
 
 @Builder
 public record UserAccountDTO(Long userId,
-                             String accountNumber,
+                             Long accountNumber,
                              Boolean isMain) {
 }

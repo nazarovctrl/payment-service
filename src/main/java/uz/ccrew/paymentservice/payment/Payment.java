@@ -7,6 +7,7 @@ import uz.ccrew.paymentservice.payment.enums.PaymentStatus;
 
 import lombok.*;
 import jakarta.persistence.*;
+import org.hibernate.annotations.Check;
 import org.hibernate.annotations.UuidGenerator;
 import org.springframework.data.annotation.CreatedDate;
 
@@ -15,6 +16,7 @@ import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "payments")
+@Check(name = "payments_c1", constraints = "payment_type = 'CARD' and payer_card_number is not null or payment_type = 'ACCOUNT' and payer_account_number is not null")
 @NoArgsConstructor
 @Getter
 @Setter
@@ -41,21 +43,22 @@ public class Payment {
 
     @Enumerated(EnumType.STRING)
     @Column
-    private PaymentType payerType;
+    private PaymentType paymentType;
 
     @Column(name = "payer_card_number")
-    private String payerCardNumber;
+    private Long payerCardNumber;
 
     @Column(name = "payer_account_number")
-    private String payerAccountNumber;
+    private Long payerAccountNumber;
 
     @Column(name = "receiver_account_number", nullable = false)
-    private String receiverAccountNumber;
+    private Long receiverAccountNumber;
 
 
     @ManyToOne
     @JoinColumn(name = "payer_card_number", foreignKey = @ForeignKey(name = "payments_f1"), insertable = false, updatable = false)
     private Card payerCard;
+
     @ManyToOne
     @JoinColumn(name = "payer_account_number", foreignKey = @ForeignKey(name = "payments_f2"), insertable = false, updatable = false)
     private Account payerAccount;

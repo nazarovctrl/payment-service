@@ -15,7 +15,6 @@ public class CardServiceImpl implements CardService {
     @Override
     public CardDTO create() {
         Card card = Card.builder()
-                .cardNumber("1231")
                 .balance(0L)
                 .build();
 
@@ -29,7 +28,9 @@ public class CardServiceImpl implements CardService {
 
     @Override
     public CardDTO topUp(TopUpDTO dto) {
-        Card card = cardRepository.findById(dto.cardNumber()).orElseThrow(() -> new BadRequestException("Card not found"));
+        Card card = cardRepository.findById(dto.cardNumber())
+                .orElseThrow(() -> new BadRequestException("Card not found"));
+
         card.setBalance(card.getBalance() + dto.amount());
         cardRepository.save(card);
 

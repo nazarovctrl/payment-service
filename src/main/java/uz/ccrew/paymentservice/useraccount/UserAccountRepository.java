@@ -11,7 +11,7 @@ public interface UserAccountRepository extends JpaRepository<UserAccount, UserAc
     @Query("""
             select w.account
               from UserAccount w
-             where w.user.id = ?1
+             where w.user.userId = ?1
              """)
     Optional<Account> findMainAccountByUser(Long id);
 }

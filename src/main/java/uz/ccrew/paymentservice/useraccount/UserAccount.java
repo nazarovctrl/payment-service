@@ -39,7 +39,7 @@ public class UserAccount {
     @NoArgsConstructor
     public static class UserAccountId implements Serializable {
         private Long userId;
-        private String accountNumber;
+        private Long accountNumber;
 
         @Override
         public boolean equals(Object o) {
