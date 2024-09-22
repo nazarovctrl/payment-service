@@ -1,4 +1,4 @@
-# assigment-service
+# payment-service
 
 
 ## Requirements
