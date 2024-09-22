@@ -43,8 +43,8 @@ public class PaymentController {
 
     @PostMapping("/reverse/{paymentId}")
     @PreAuthorize("hasAuthority('CLIENT')")
-    @Operation(summary = "Withdraw by account")
-    public ResponseEntity<Response<PaymentDTO>> withdrawByCard(@PathVariable(name = "paymentId") String paymentId) {
+    @Operation(summary = "Reverse")
+    public ResponseEntity<Response<PaymentDTO>> reverse(@PathVariable(name = "paymentId") String paymentId) {
         PaymentDTO result = paymentService.reverse(UUID.fromString(paymentId));
         return ResponseMaker.ok(result);
     }
