@@ -1,5 +1,6 @@
 package uz.ccrew.paymentservice.payment;
 
+import org.springframework.web.bind.annotation.*;
 import uz.ccrew.paymentservice.response.Response;
 import uz.ccrew.paymentservice.response.ResponseMaker;
 import uz.ccrew.paymentservice.payment.dto.PaymentDTO;
@@ -11,12 +12,10 @@ import lombok.RequiredArgsConstructor;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.http.ResponseEntity;
 import io.swagger.v3.oas.annotations.Operation;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
 import org.springframework.security.access.prepost.PreAuthorize;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
+
+import java.util.UUID;
 
 @RestController
 @RequestMapping("/api/v1/payment")
@@ -39,6 +38,14 @@ public class PaymentController {
     @Operation(summary = "Withdraw by account")
     public ResponseEntity<Response<PaymentDTO>> withdrawByCard(@RequestBody @Valid WithdrawAccountDTO dto) {
         PaymentDTO result = paymentService.withdrawByAccount(dto);
+        return ResponseMaker.ok(result);
+    }
+
+    @PostMapping("/reverse/{paymentId}")
+    @PreAuthorize("hasAuthority('CLIENT')")
+    @Operation(summary = "Withdraw by account")
+    public ResponseEntity<Response<PaymentDTO>> withdrawByCard(@PathVariable(name = "paymentId") String paymentId) {
+        PaymentDTO result = paymentService.reverse(UUID.fromString(paymentId));
         return ResponseMaker.ok(result);
     }
 }

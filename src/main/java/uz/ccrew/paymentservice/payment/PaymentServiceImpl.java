@@ -18,6 +18,7 @@ import lombok.RequiredArgsConstructor;
 import jakarta.transaction.Transactional;
 import org.springframework.stereotype.Service;
 
+import java.util.UUID;
 import java.time.LocalDateTime;
 
 @Service
@@ -51,7 +52,7 @@ public class PaymentServiceImpl implements PaymentService {
 
         Payment payment = Payment.builder()
                 .amount(dto.amount())
-                .payerType(PaymentType.CARD)
+                .paymentType(PaymentType.CARD)
                 .payerCardNumber(dto.cardNumber())
                 .receiverAccountNumber(receiverAccount.getAccountNumber())
                 .payedTime(LocalDateTime.now())
@@ -66,6 +67,7 @@ public class PaymentServiceImpl implements PaymentService {
                 .build();
     }
 
+    @Transactional
     @Override
     public PaymentDTO withdrawByAccount(WithdrawAccountDTO dto) {
         User user = authUtil.loadLoggedUser();
@@ -86,7 +88,7 @@ public class PaymentServiceImpl implements PaymentService {
 
         Payment payment = Payment.builder()
                 .amount(dto.amount())
-                .payerType(PaymentType.ACCOUNT)
+                .paymentType(PaymentType.ACCOUNT)
                 .payerAccountNumber(dto.accountNumber())
                 .receiverAccountNumber(receiverAccount.getAccountNumber())
                 .payedTime(LocalDateTime.now())
@@ -98,6 +100,39 @@ public class PaymentServiceImpl implements PaymentService {
                 .paymentId(payment.getPaymentId().toString())
                 .status(payment.getStatus())
                 .payedTime(payment.getPayedTime())
+                .build();
+    }
+
+    @Transactional
+    @Override
+    public PaymentDTO reverse(UUID paymentId) {
+        Payment payment = paymentRepository.findById(paymentId).orElseThrow(() -> new BadRequestException("Payment not found"));
+
+        Account receiverAccount = payment.getReceiverAccount();
+        if (receiverAccount.getBalance() < payment.getAmount()) {
+            throw new BadRequestException("Can not reverse");
+        }
+        receiverAccount.setBalance(receiverAccount.getBalance() - payment.getAmount());
+        accountRepository.save(receiverAccount);
+
+        if (payment.getPaymentType().equals(PaymentType.CARD)) {
+            Card payerCard = payment.getPayerCard();
+            payerCard.setBalance(payerCard.getBalance() + payment.getAmount());
+            cardRepository.save(payerCard);
+        } else {
+            Account payerAccount = payment.getPayerAccount();
+            payerAccount.setBalance(payerAccount.getBalance() + payment.getAmount());
+            accountRepository.save(payerAccount);
+        }
+
+        payment.setStatus(PaymentStatus.REVERSED);
+        payment.setReversedTime(LocalDateTime.now());
+        paymentRepository.save(payment);
+
+        return PaymentDTO.builder()
+                .paymentId(payment.getPaymentId().toString())
+                .status(payment.getStatus())
+                .reversedTime(payment.getReversedTime())
                 .build();
     }
 }

@@ -9,5 +9,6 @@ import java.time.LocalDateTime;
 @Builder
 public record PaymentDTO(String paymentId,
                          PaymentStatus status,
-                         LocalDateTime payedTime) {
+                         LocalDateTime payedTime,
+                         LocalDateTime reversedTime) {
 }
