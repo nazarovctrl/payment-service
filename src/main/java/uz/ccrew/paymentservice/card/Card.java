@@ -1,7 +1,7 @@
 package uz.ccrew.paymentservice.card;
 
-import jakarta.persistence.*;
 import lombok.*;
+import jakarta.persistence.*;
 
 @Entity
 @Table(name = "cards")

@@ -21,10 +21,10 @@ public class UserAccountServiceImpl implements UserAccountService {
     @Override
     public UserAccountDTO create(UserAccountCreateDTO dto) {
         User user = userRepository.findById(dto.userId()).orElseThrow(() -> new BadRequestException("User not found"));
-        Account account = accountRepository.findById(Long.valueOf(dto.accountNumber())).orElseThrow(() -> new BadRequestException("Account not found"));
+        Account account = accountRepository.findById(dto.accountNumber()).orElseThrow(() -> new BadRequestException("Account not found"));
 
         UserAccount userAccount = UserAccount.builder()
-                .id(new UserAccount.UserAccountId(dto.userId(), Long.valueOf(dto.accountNumber())))
+                .id(new UserAccount.UserAccountId(dto.userId(), dto.accountNumber()))
                 .user(user)
                 .account(account)
                 .isMain(dto.isMain())
