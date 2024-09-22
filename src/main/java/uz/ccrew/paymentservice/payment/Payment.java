@@ -46,13 +46,13 @@ public class Payment {
     private PaymentType paymentType;
 
     @Column(name = "payer_card_number")
-    private String payerCardNumber;
+    private Long payerCardNumber;
 
     @Column(name = "payer_account_number")
-    private String payerAccountNumber;
+    private Long payerAccountNumber;
 
     @Column(name = "receiver_account_number", nullable = false)
-    private String receiverAccountNumber;
+    private Long receiverAccountNumber;
 
 
     @ManyToOne

@@ -1,10 +1,7 @@
 package uz.ccrew.paymentservice.account;
 
 import lombok.*;
-import jakarta.persistence.Id;
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 
 @Entity
 @Table(name = "accounts")
@@ -15,7 +12,9 @@ import jakarta.persistence.Table;
 @AllArgsConstructor
 public class Account {
     @Id
-    private String accountNumber;
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "account_number_seq_gen")
+    @SequenceGenerator(name = "account_number_seq_gen", sequenceName = "account_number_seq", allocationSize = 1)
+    private Long accountNumber;
 
     @Column(nullable = false)
     private Long balance;

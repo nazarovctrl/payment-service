@@ -39,7 +39,7 @@ public class PaymentServiceImpl implements PaymentService {
                 .orElseThrow(() -> new BadRequestException("Receiver main account not found"));
 
 
-        Card card = cardRepository.findById(dto.cardNumber()).orElseThrow(() -> new BadRequestException("Card not found"));
+        Card card = cardRepository.findById(Long.valueOf(dto.cardNumber())).orElseThrow(() -> new BadRequestException("Card not found"));
         if (card.getBalance() < dto.amount()) {
             throw new BadRequestException("Not enough money on the card");
         }
@@ -53,7 +53,7 @@ public class PaymentServiceImpl implements PaymentService {
         Payment payment = Payment.builder()
                 .amount(dto.amount())
                 .paymentType(PaymentType.CARD)
-                .payerCardNumber(dto.cardNumber())
+                .payerCardNumber(Long.valueOf(dto.cardNumber()))
                 .receiverAccountNumber(receiverAccount.getAccountNumber())
                 .payedTime(LocalDateTime.now())
                 .status(PaymentStatus.PAYED)
@@ -76,7 +76,7 @@ public class PaymentServiceImpl implements PaymentService {
                 .orElseThrow(() -> new BadRequestException("Receiver main account not found"));
 
 
-        Account account = accountRepository.findById(dto.accountNumber()).orElseThrow(() -> new BadRequestException("Card not found"));
+        Account account = accountRepository.findById(Long.valueOf(dto.accountNumber())).orElseThrow(() -> new BadRequestException("Card not found"));
         if (account.getBalance() < dto.amount()) {
             throw new BadRequestException("Not enough money on the account");
         }
@@ -89,7 +89,7 @@ public class PaymentServiceImpl implements PaymentService {
         Payment payment = Payment.builder()
                 .amount(dto.amount())
                 .paymentType(PaymentType.ACCOUNT)
-                .payerAccountNumber(dto.accountNumber())
+                .payerAccountNumber(Long.valueOf(dto.accountNumber()))
                 .receiverAccountNumber(receiverAccount.getAccountNumber())
                 .payedTime(LocalDateTime.now())
                 .status(PaymentStatus.PAYED)

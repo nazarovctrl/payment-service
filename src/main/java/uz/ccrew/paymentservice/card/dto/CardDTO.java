@@ -3,6 +3,6 @@ package uz.ccrew.paymentservice.card.dto;
 import lombok.Builder;
 
 @Builder
-public record CardDTO(String cardNumber,
+public record CardDTO(Long cardNumber,
                       Long balance) {
 }

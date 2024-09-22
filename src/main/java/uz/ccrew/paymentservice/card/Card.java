@@ -1,10 +1,7 @@
 package uz.ccrew.paymentservice.card;
 
+import jakarta.persistence.*;
 import lombok.*;
-import jakarta.persistence.Id;
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Table;
 
 @Entity
 @Table(name = "cards")
@@ -15,7 +12,9 @@ import jakarta.persistence.Table;
 @AllArgsConstructor
 public class Card {
     @Id
-    private String cardNumber;
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "card_number_seq_gen")
+    @SequenceGenerator(name = "card_number_seq_gen", sequenceName = "card_number_seq", allocationSize = 1)
+    private Long cardNumber;
 
     @Column(nullable = false)
     private Long balance;
