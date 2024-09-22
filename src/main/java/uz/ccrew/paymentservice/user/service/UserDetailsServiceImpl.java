@@ -1,8 +1,8 @@
 package uz.ccrew.paymentservice.user.service;
 
 import uz.ccrew.paymentservice.user.User;
-import uz.ccrew.paymentservice.user.UserDetailsImpl;
 import uz.ccrew.paymentservice.user.UserRepository;
+import uz.ccrew.paymentservice.user.UserDetailsImpl;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
