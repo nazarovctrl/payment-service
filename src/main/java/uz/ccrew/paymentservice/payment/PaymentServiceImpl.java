@@ -53,7 +53,7 @@ public class PaymentServiceImpl implements PaymentService {
         Payment payment = Payment.builder()
                 .amount(dto.amount())
                 .paymentType(PaymentType.CARD)
-                .payerCardNumber(Long.valueOf(dto.cardNumber()))
+                .payerCardNumber(dto.cardNumber())
                 .receiverAccountNumber(receiverAccount.getAccountNumber())
                 .payedTime(LocalDateTime.now())
                 .status(PaymentStatus.PAYED)
