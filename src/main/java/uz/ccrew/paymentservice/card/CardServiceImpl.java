@@ -7,6 +7,8 @@ import uz.ccrew.paymentservice.exp.BadRequestException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 @RequiredArgsConstructor
 public class CardServiceImpl implements CardService {
@@ -38,5 +40,14 @@ public class CardServiceImpl implements CardService {
                 .cardNumber(card.getCardNumber())
                 .balance(card.getBalance())
                 .build();
+    }
+
+    @Override
+    public List<CardDTO> getList() {
+        return cardRepository.findAll().stream()
+                .map(card -> CardDTO.builder()
+                        .cardNumber(card.getCardNumber())
+                        .balance(card.getBalance())
+                        .build()).toList();
     }
 }

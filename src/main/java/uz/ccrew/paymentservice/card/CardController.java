@@ -14,6 +14,8 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.security.access.prepost.PreAuthorize;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("/api/v1/card")
 @RequiredArgsConstructor
@@ -27,6 +29,14 @@ public class CardController {
     @Operation(summary = "Create card")
     public ResponseEntity<Response<CardDTO>> create() {
         CardDTO result = cardService.create();
+        return ResponseMaker.ok(result);
+    }
+
+    @GetMapping("/list")
+    @PreAuthorize("hasAuthority('ADMINISTRATOR')")
+    @Operation(summary = "List")
+    public ResponseEntity<Response<List<CardDTO>>> getList() {
+        List<CardDTO> result = cardService.getList();
         return ResponseMaker.ok(result);
     }
 
